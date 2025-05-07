@@ -33,27 +33,14 @@ func airMovement():
 	var relativeBasis:Basis
 	var tween = get_tree().create_tween()
 	inp_direction = Input.get_vector("Left", "Right", "Forward", "Backwards")
-	
-	if (!assigned_object is MainCharacter): 
-		print("ERROR. THE OBJECT RELATED TO THE PLAYER STATE MACHINE IS NOT A PLAYER")
-		return
-	
 	relativeBasis = assigned_object.neck.transform.basis 
-	
 	direction = (relativeBasis * Vector3(inp_direction.x,0,inp_direction.y)).normalized()
+	
 	if(direction):
-		#debug delete later
-		var total_spd = Vector3(assigned_object.velocity.abs().x, 0, assigned_object.velocity.abs().z).length()
-		
-		
 		if(abs(assigned_object.velocity.x + (direction.x * assigned_object.ACCELERATION)) < abs(assigned_object.SPEED * direction.x)):
 			assigned_object.velocity.x += direction.x * assigned_object.ACCELERATION
-		
 		if(abs(assigned_object.velocity.z + (direction.z * assigned_object.ACCELERATION)) < abs(assigned_object.SPEED * direction.z)):
 			assigned_object.velocity.z += direction.z * assigned_object.ACCELERATION
-		
-		
-		
 		tween.tween_property(assigned_object.neck.tilt, "rotation", Vector3(0,0,deg_to_rad(assigned_object.tilt_value*inp_direction.x)), 0.2)
 	else:
 		tween.tween_property(assigned_object.neck.tilt, "rotation", Vector3(0,0,0), 0.2)
@@ -67,13 +54,12 @@ func physics(delta:float):
 
 func toIdle():
 	if (assigned_object.velocity.x == 0
-	&& assigned_object.velocity.y == 0
+	&& assigned_object.velocity.z == 0
 	&& assigned_object.is_on_floor()):
 		state_swap.emit(name, "Idle")
 
 func toWalk():
 	if (assigned_object.is_on_floor() 
-	&& assigned_object.velocity.y <= 0
 	&& (assigned_object.velocity.x != 0
 	|| assigned_object.velocity.z  != 0)):
 		state_swap.emit(name, "Walk")

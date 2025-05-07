@@ -22,7 +22,7 @@ offset_left = 870.0
 offset_top = 337.0
 offset_right = 1041.0
 offset_bottom = 429.0
-text = "Continuar"
+text = "Continue"
 
 [node name="Button2" type="Button" parent="Control"]
 visible = false
@@ -30,17 +30,17 @@ layout_mode = 0
 offset_left = 880.0
 offset_top = 476.0
 offset_right = 1034.0
-offset_bottom = 578.0
-text = "Reiniciar"
+offset_bottom = 542.0
+text = "Reset"
 
 [node name="Button" type="Button" parent="Control"]
 visible = false
 layout_mode = 0
-offset_left = 885.0
-offset_top = 720.0
-offset_right = 1054.0
-offset_bottom = 862.0
-text = "Salir"
+offset_left = 888.0
+offset_top = 590.0
+offset_right = 1023.0
+offset_bottom = 646.0
+text = "Close"
 
 [connection signal="pressed" from="Control/Reanudar" to="." method="reanudar"]
 [connection signal="pressed" from="Control/Button2" to="." method="reiniciar"]

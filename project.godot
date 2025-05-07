@@ -24,6 +24,10 @@ Rodrigo="*res://Scripts/GlobalScripts/Rodrigo.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[global_group]
+
+Player="A gtoup to detect the player"
+
 [input]
 
 Forward={

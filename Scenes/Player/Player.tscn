@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bm5wa04535r1r"]
+[gd_scene load_steps=14 format=3 uid="uid://bm5wa04535r1r"]
 
 [ext_resource type="Script" uid="uid://dkyapi387f8se" path="res://Scripts/Player_Related/Player.gd" id="1_jmcll"]
 [ext_resource type="Script" uid="uid://by8auddvf35hn" path="res://Scripts/Player_Related/Player_Camera.gd" id="1_s0eop"]
@@ -7,26 +7,23 @@
 [ext_resource type="Script" uid="uid://cxs10odcwhow" path="res://Scripts/Player_Related/States/PlayerIdleState.gd" id="5_4wape"]
 [ext_resource type="PackedScene" uid="uid://ddjqnhx7w76d3" path="res://Scenes/Components/GravityAffected.tscn" id="5_jmcll"]
 [ext_resource type="Script" uid="uid://c3tn7i1frc8c8" path="res://Scripts/Player_Related/States/PlayerJumpState.gd" id="6_fk5o5"]
-[ext_resource type="Script" uid="uid://b56a250lxux1d" path="res://Scripts/Player_Related/States/PlayerRunState.gd" id="7_825xp"]
 [ext_resource type="PackedScene" uid="uid://cctinehgsh53" path="res://Scenes/Components/DebugTextNode.tscn" id="7_t26db"]
 [ext_resource type="Script" uid="uid://brk2ebi3vmiow" path="res://Scripts/Player_Related/States/PlayerFallState.gd" id="8_ji083"]
+[ext_resource type="Script" uid="uid://bqqwg4ldie2df" path="res://Scripts/Player_Related/PivotManager/PivotManager.gd" id="11_0kmp4"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_l3ax4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s0eop"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("debugA", "debugB", "neck")]
+[sub_resource type="SphereMesh" id="SphereMesh_ji083"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("debugA", "debugB", "neck", "ray_cast_pivot") groups=["Player"]]
 script = ExtResource("1_jmcll")
 debugA = NodePath("Label3")
 debugB = NodePath("Label2")
 neck = NodePath("Neck")
-SPEED = 50
-RUNNING_RESISTANCE = 0.5
-JUMPSTRENGTH = 100
-JUMP_RESISTANCE_VALUE = 0.75
-ACCELERATION = 3
-tilt_value = 1.5
-coyote_time_value = 0.1
+ray_cast_pivot = NodePath("RayCastPivot")
+ACCELERATION = 2
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_l3ax4")
@@ -34,11 +31,12 @@ mesh = SubResource("CapsuleMesh_l3ax4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_s0eop")
 
-[node name="Neck" type="Node3D" parent="." node_paths=PackedStringArray("tilt")]
+[node name="Neck" type="Node3D" parent="." node_paths=PackedStringArray("tilt", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.607476, 0)
 script = ExtResource("1_s0eop")
 LIMIT_DEG = 60
 tilt = NodePath("TiltDummy")
+camera = NodePath("TiltDummy/Camera3D")
 
 [node name="TiltDummy" type="Node3D" parent="Neck"]
 
@@ -62,12 +60,6 @@ assigned_object = NodePath("../..")
 script = ExtResource("6_fk5o5")
 assigned_object = NodePath("../..")
 
-[node name="Running" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("debugA", "debugB", "assigned_object")]
-script = ExtResource("7_825xp")
-debugA = NodePath("../../Label3")
-debugB = NodePath("../../Label2")
-assigned_object = NodePath("../..")
-
 [node name="Fall" type="Node" parent="MovementStateMachine" node_paths=PackedStringArray("assigned_object")]
 script = ExtResource("8_ji083")
 assigned_object = NodePath("../..")
@@ -87,3 +79,15 @@ offset_bottom = 228.0
 offset_top = 84.0
 offset_right = 189.0
 offset_bottom = 153.0
+
+[node name="RayCastPivot" type="Node3D" parent="." node_paths=PackedStringArray("vertical_ray")]
+script = ExtResource("11_0kmp4")
+vertical_ray = NodePath("VerticalRay")
+
+[node name="DebugModel" type="MeshInstance3D" parent="RayCastPivot"]
+visible = false
+mesh = SubResource("SphereMesh_ji083")
+skeleton = NodePath("../VerticalRay")
+
+[node name="VerticalRay" type="RayCast3D" parent="RayCastPivot"]
+target_position = Vector3(0, -2, 0)

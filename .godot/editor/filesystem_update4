@@ -1,0 +1,5 @@
+res://Scenes/Player/Player.tscn
+res://Scripts/Player_Related/Player.gd
+res://Scripts/Player_Related/States/PlayerWalkState.gd
+res://Scenes/Stages/MainStage.tscn
+res://Scenes/Components/Pause.tscn

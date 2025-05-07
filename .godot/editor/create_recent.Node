@@ -1,6 +1,9 @@
-AnimationPlayer
-MeshInstance3D
+RayCast3D
 Node3D
+Camera3D
+MeshInstance3D
+ShapeCast3D
+AnimationPlayer
 Node
 StaticBody3D
 Button
@@ -8,6 +11,4 @@ Control
 Label
 CollisionShape3D
 WorldEnvironment
-Camera3D
 CharacterBody3D
-Area3D
