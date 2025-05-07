@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbkwm1rrp3a1e"]
+
+[ext_resource type="Script" uid="uid://ckei82qe25two" path="res://Scripts/Components/Pause.gd" id="1_xed74"]
+
+[node name="Pause" type="Node" node_paths=PackedStringArray("reanudar_butt", "reiniciar_butt", "salir_butt")]
+process_mode = 3
+script = ExtResource("1_xed74")
+reanudar_butt = NodePath("Control/Reanudar")
+reiniciar_butt = NodePath("Control/Button2")
+salir_butt = NodePath("Control/Button")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Reanudar" type="Button" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 870.0
+offset_top = 337.0
+offset_right = 1041.0
+offset_bottom = 429.0
+text = "Continuar"
+
+[node name="Button2" type="Button" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 880.0
+offset_top = 476.0
+offset_right = 1034.0
+offset_bottom = 578.0
+text = "Reiniciar"
+
+[node name="Button" type="Button" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 885.0
+offset_top = 720.0
+offset_right = 1054.0
+offset_bottom = 862.0
+text = "Salir"
+
+[connection signal="pressed" from="Control/Reanudar" to="." method="reanudar"]
+[connection signal="pressed" from="Control/Button2" to="." method="reiniciar"]
+[connection signal="pressed" from="Control/Button" to="." method="exit"]

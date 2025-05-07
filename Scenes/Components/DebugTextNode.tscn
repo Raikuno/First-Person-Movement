@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cctinehgsh53"]
+
+[ext_resource type="Script" uid="uid://103ce2w5dqgn" path="res://Scripts/Components/DebugText.gd" id="1_errsu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a23rx"]
+font_size = 50
+
+[node name="Label" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Estado: "
+label_settings = SubResource("LabelSettings_a23rx")
+script = ExtResource("1_errsu")

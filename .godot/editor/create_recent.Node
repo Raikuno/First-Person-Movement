@@ -1,0 +1,13 @@
+AnimationPlayer
+MeshInstance3D
+Node3D
+Node
+StaticBody3D
+Button
+Control
+Label
+CollisionShape3D
+WorldEnvironment
+Camera3D
+CharacterBody3D
+Area3D

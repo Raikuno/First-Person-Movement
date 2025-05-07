@@ -1,0 +1,104 @@
+[gd_scene load_steps=10 format=3 uid="uid://cik57mgquq1m8"]
+
+[ext_resource type="PackedScene" uid="uid://bm5wa04535r1r" path="res://Scenes/Player/Player.tscn" id="1_6xnpo"]
+[ext_resource type="PackedScene" uid="uid://cbkwm1rrp3a1e" path="res://Scenes/Components/Pause.tscn" id="2_pthc6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pthc6"]
+albedo_color = Color(0.247059, 0.360784, 0.231373, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4qfso"]
+material = SubResource("StandardMaterial3D_pthc6")
+size = Vector3(800, 1, 800)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6xnpo"]
+size = Vector3(800, 1, 800)
+
+[sub_resource type="Environment" id="Environment_6xnpo"]
+background_mode = 1
+background_color = Color(0.529412, 0.890196, 0.929412, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6xnpo"]
+albedo_color = Color(0.415177, 0.0379204, 0.198445, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6xnpo"]
+material = SubResource("StandardMaterial3D_6xnpo")
+size = Vector3(20, 100, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pthc6"]
+size = Vector3(20, 100, 20)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.0854169, -0.594046, 0.799883, 0, 0.802817, 0.596225, -0.996345, 0.0509277, -0.0685742, 0, 0, 0)
+light_color = Color(1, 0.662745, 0.258824, 1)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_4qfso")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_6xnpo")
+
+[node name="Player" parent="Floor" instance=ExtResource("1_6xnpo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.015, 49.4029, 51.6284)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6xnpo")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_6xnpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_pthc6")
+
+[node name="Pause" parent="." instance=ExtResource("2_pthc6")]
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -66.9069, -35.2833, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("BoxMesh_6xnpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("BoxShape3D_pthc6")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.3583, -25.2831, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3"]
+mesh = SubResource("BoxMesh_6xnpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+shape = SubResource("BoxShape3D_pthc6")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72.4335, 0, -3.42776)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4"]
+mesh = SubResource("BoxMesh_6xnpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+shape = SubResource("BoxShape3D_pthc6")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 191.298, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D5"]
+mesh = SubResource("BoxMesh_6xnpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5"]
+shape = SubResource("BoxShape3D_pthc6")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.63776, 0.770235, 0, -0.770235, 0.63776, 2.07397, 10.7047, 32.163)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D6"]
+mesh = SubResource("BoxMesh_6xnpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6"]
+shape = SubResource("BoxShape3D_pthc6")

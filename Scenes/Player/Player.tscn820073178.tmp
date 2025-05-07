@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://bm5wa04535r1r"]
+
+[ext_resource type="Script" uid="uid://dkyapi387f8se" path="res://Scripts/Player_Related/Player.gd" id="1_jmcll"]
+[ext_resource type="Script" uid="uid://by8auddvf35hn" path="res://Scripts/Player_Related/Player_Camera.gd" id="1_s0eop"]
+[ext_resource type="PackedScene" uid="uid://d4h023dup2k6l" path="res://Scenes/StateMachine.tscn" id="3_h54ih"]
+[ext_resource type="Script" uid="uid://dtnkkyqjde26v" path="res://Scripts/Player_Related/States/PlayerWalkState.gd" id="4_ude3g"]
+[ext_resource type="Script" uid="uid://cxs10odcwhow" path="res://Scripts/Player_Related/States/PlayerIdleState.gd" id="5_4wape"]
+[ext_resource type="PackedScene" uid="uid://ddjqnhx7w76d3" path="res://Scenes/Components/GravityAffected.tscn" id="5_jmcll"]
+[ext_resource type="Script" uid="uid://c3tn7i1frc8c8" path="res://Scripts/Player_Related/States/PlayerJumpState.gd" id="6_fk5o5"]
+[ext_resource type="PackedScene" uid="uid://cctinehgsh53" path="res://Scenes/Components/DebugTextNode.tscn" id="7_t26db"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_l3ax4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_s0eop"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("neck")]
+script = ExtResource("1_jmcll")
+neck = NodePath("Neck")
+ACCELERATION_PER_FRAME = 0.0
+JUMPSTRENGTH = 200
+JUMP_RESISTANCE_VALUE = 0.75
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_l3ax4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_s0eop")
+
+[node name="Neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.607476, 0)
+script = ExtResource("1_s0eop")
+LIMIT_DEG = 60
+
+[node name="Camera3D" type="Camera3D" parent="Neck"]
+fov = 78.2294
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("assigned_object", "initial_state", "debugText") instance=ExtResource("3_h54ih")]
+assigned_object = NodePath("..")
+initial_state = NodePath("Idle")
+debugText = NodePath("../Label")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("assigned_object")]
+script = ExtResource("5_4wape")
+assigned_object = NodePath("../..")
+
+[node name="Walk" type="Node" parent="StateMachine" node_paths=PackedStringArray("debugA", "debugB", "assigned_object")]
+script = ExtResource("4_ude3g")
+debugA = NodePath("../../Label3")
+debugB = NodePath("../../Label2")
+assigned_object = NodePath("../..")
+
+[node name="Jump" type="Node" parent="StateMachine" node_paths=PackedStringArray("assigned_object")]
+script = ExtResource("6_fk5o5")
+assigned_object = NodePath("../..")
+
+[node name="GravityAffected" parent="." node_paths=PackedStringArray("assigned_object") instance=ExtResource("5_jmcll")]
+assigned_object = NodePath("..")
+
+[node name="Label" parent="." instance=ExtResource("7_t26db")]
+
+[node name="Label3" parent="." instance=ExtResource("7_t26db")]
+offset_top = 159.0
+offset_right = 189.0
+offset_bottom = 228.0
+
+[node name="Label2" parent="." instance=ExtResource("7_t26db")]
+offset_top = 84.0
+offset_right = 189.0
+offset_bottom = 153.0
